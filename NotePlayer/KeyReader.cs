@@ -81,6 +81,8 @@ namespace NotePlayer
         /// <param name="n"></param>
         public static void PlayNote(KeyboardNote n)
         {
+            //Console.Beep() does not work in universal apps.
+            //I cannot find an easy way to do the same basic task in mobile.
             if (n.Frequency > 0)
                 Console.Beep(n.Frequency, 200);
             else
@@ -91,12 +93,23 @@ namespace NotePlayer
     public class KeyboardNote
     {
         public KeyboardNote() { }
+        /// <summary>
+        /// Keyboard note
+        /// </summary>
+        /// <param name="n">Note name</param>
+        /// <param name="i">Note octave</param>
         public KeyboardNote(string n, int i)
         {
             _Note = n;
             _Octave = i;
             _Frequency = 0;
         }
+        /// <summary>
+        /// Keyboard note
+        /// </summary>
+        /// <param name="n">Note name</param>
+        /// <param name="i">Note octave</param>
+        /// <param name="t">Note frequency</param>
         public KeyboardNote(string n, int i, int t)
         {
             _Note = n;
