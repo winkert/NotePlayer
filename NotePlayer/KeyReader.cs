@@ -40,18 +40,18 @@ namespace NotePlayer
         private static Dictionary<char, KeyboardNote> buildKeys()
         {
             Dictionary<char, KeyboardNote> k = new Dictionary<char, KeyboardNote>();
-            k.Add('q', BassC);
-            k.Add('w', BassCsharp);
-            k.Add('e', BassDsharp);
-            k.Add('r', BassF);
-            k.Add('t', BassFsharp);
-            k.Add('y', BassGsharp);
-            k.Add('u', BassAsharp);
-            k.Add('i', BassB);
-            k.Add('o', MiddleC);
-            k.Add('p', MiddleCsharp);
-            k.Add('[', MiddleDsharp);
-            k.Add(']', MiddleE);
+            k.Add('q', BassCsharp);
+            k.Add('w', BassDsharp);
+            k.Add('e', BassE);
+            k.Add('r', BassFsharp);
+            k.Add('t', BassGsharp);
+            k.Add('y', BassAsharp);
+            k.Add('u', BassB);
+            k.Add('i', MiddleC);
+            k.Add('o', MiddleCsharp);
+            k.Add('p', MiddleDsharp);
+            k.Add('[', MiddleGsharp);
+            k.Add(']', MiddleAsharp);
             k.Add('a', BassD);
             k.Add('s', BassE);
             k.Add('d', BassF);
