@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Input;
+using System.Threading;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace NotePlayer
 {
     public static class KeyReader
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern int MapVirtualKey(int uCode, int uMapType);
+
         #region Notes
         private static KeyboardNote BassC = new KeyboardNote("C", 3, 131);
         private static KeyboardNote BassCsharp = new KeyboardNote("C#", 3, 139);
@@ -84,9 +92,16 @@ namespace NotePlayer
             //Console.Beep() does not work in universal apps.
             //I cannot find an easy way to do the same basic task in mobile.
             if (n.Frequency > 0)
-                Console.Beep(n.Frequency, 200);
+                Player.PlayBeep((UInt16)n.Frequency, 300);
             else
                 throw new Exception("No key found to play");
+        }
+
+        public static char KeyToChar(Key k)
+        {
+            char key = (char)MapVirtualKey(KeyInterop.VirtualKeyFromKey(k), 2);
+
+            return key;
         }
     }
 
@@ -116,12 +131,28 @@ namespace NotePlayer
             _Octave = i;
             _Frequency = t;
         }
+        /// <summary>
+        /// Keyboard note
+        /// </summary>
+        /// <param name="n">Note name</param>
+        /// <param name="i">Note octave</param>
+        /// <param name="t">Note frequency</param>
+        /// <param name ="k">Key Pressed</param>
+        public KeyboardNote(string n, int i, int t, char k)
+        {
+            _Note = n;
+            _Octave = i;
+            _Frequency = t;
+            _KeyPressed = k;
+        }
         private string _Note;
         public string Note { get { return _Note; } }
         private int _Octave;
         public int Octave { get { return _Octave; } }
         private int _Frequency;
         public int Frequency { get { return _Frequency; } }
+        private char _KeyPressed;
+        public char KeyPressed { get { return _KeyPressed; } }
         public override string ToString()
         {
             return Note + Octave;
